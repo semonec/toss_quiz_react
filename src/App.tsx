@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import './App.css';
-import { string } from 'prop-types';
 import axios, { AxiosRequestConfig } from 'axios';
+import { Item } from './Item';
 
 export interface AppState {
   text?: string,
-  result?: never[],
+  result: never[],
 };
 
 export class App extends Component<{}, AppState> {
@@ -36,7 +36,7 @@ export class App extends Component<{}, AppState> {
         if (items) {
           let filtered: never[] = items.filter((e:any) => {
             let title: string = e.title;
-            if (title.search('토스') >= 0) {
+            if (title.search('토스') >= 0 || title.search('퀴즈') >= 0) {
               return true;
             }
           });
@@ -46,17 +46,25 @@ export class App extends Component<{}, AppState> {
       })
       .catch(err => {
         console.error(err);
+        this.setState({result: []});
       })
   }
 
   render() {
+    let list;
+    if (this.state.result.length) {
+      list = this.state.result.map((item, index) => {
+        return <Item item={item} />;
+      });
+    }
     return (
       <div className="App">
         <header className="App-header">
-          <p>Input keyword then, press 'SEARCH" button</p>
+          <p>Input keyword then, press 'SEARCH' button</p>
           <input type="text" onChange={this.changeText.bind(this)}></input>
           <br/>
           <button onClick={this.query.bind(this)}>SEARCH</button>
+          {list}
         </header>
       </div>
     );
