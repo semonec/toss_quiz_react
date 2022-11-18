@@ -13,7 +13,7 @@
     "cors": "^2.8.5",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-scripts": "3.0.1",
+    "react-scripts": "5.0.1",
     "request": "^2.88.0",
     "typescript": "3.5.3"
   },
